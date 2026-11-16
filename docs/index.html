@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Notepad – Free Open-Source Dark Mode Notepad for Windows 10 &amp; 11</title>
+<meta name="description" content="Dark Notepad is a free, open-source dark mode Notepad alternative for Windows 10 and 11. Light text on dark gray, find, word wrap, zoom and status bar. Try the live demo, then install in one line.">
+<meta name="keywords" content="dark notepad, dark mode notepad, notepad dark theme, windows dark mode text editor, notepad alternative, open source text editor, powershell winforms, lightweight text editor, free notepad clone">
+<meta name="author" content="248Tech">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#e81123">
+<link rel="canonical" href="https://248tech.github.io/DarkNotepad/">
+<link rel="icon" type="image/png" href="assets/icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dark Notepad">
+<meta property="og:title" content="Dark Notepad – Free Open-Source Dark Mode Notepad for Windows">
+<meta property="og:description" content="A lightweight dark-mode Notepad clone. Light text on dark gray, find, word wrap, zoom. Try the live demo.">
+<meta property="og:url" content="https://248tech.github.io/DarkNotepad/">
+<meta property="og:image" content="https://248tech.github.io/DarkNotepad/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dark Notepad window showing light text on a dark gray background">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dark Notepad – Dark Mode Notepad for Windows">
+<meta name="twitter:description" content="Free, open-source, lightweight. Try the live demo.">
+<meta name="twitter:image" content="https://248tech.github.io/DarkNotepad/assets/og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Dark Notepad",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows 10, Windows 11",
+      "softwareVersion": "1.0.0",
+      "description": "A free, open-source dark mode Notepad alternative for Windows built with PowerShell and WinForms.",
+      "url": "https://248tech.github.io/DarkNotepad/",
+      "downloadUrl": "https://github.com/248Tech/DarkNotepad/releases/latest",
+      "license": "https://opensource.org/licenses/MIT",
+      "image": "https://248tech.github.io/DarkNotepad/assets/og.png",
+      "author": { "@type": "Organization", "name": "248Tech", "url": "https://github.com/248Tech" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Is Dark Notepad free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is free and open source under the MIT license." } },
+        { "@type": "Question", "name": "Does Dark Notepad work on Windows 10 and 11?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. It runs on Windows PowerShell 5.1, which ships with both Windows 10 and Windows 11." } },
+        { "@type": "Question", "name": "Does Dark Notepad collect any data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The app makes no network connections and has no telemetry." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{--bg:#161616;--panel:#1e1e1e;--bar:#2b2b2b;--line:#3a3a3a;--text:#ebebeb;--mute:#a8a8a8;--red:#e81123;--link:#ff6b78}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+  a{color:var(--link)} a:hover{color:#fff}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px}
+  header.top{border-top:6px solid var(--red);background:#111}
+  nav{display:flex;gap:20px;align-items:center;padding:14px 0;flex-wrap:wrap}
+  nav .brand{font-weight:700;color:#fff;text-decoration:none;margin-right:auto}
+  nav a{color:var(--mute);text-decoration:none;font-size:15px} nav a:hover{color:#fff}
+  .hero{padding:56px 0 28px;text-align:center}
+  h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin:0 0 14px}
+  .lead{color:var(--mute);font-size:1.15rem;max-width:680px;margin:0 auto 24px}
+  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+  .btn{display:inline-block;padding:11px 22px;border-radius:6px;text-decoration:none;font-weight:600;border:1px solid var(--line);color:#fff;background:var(--bar)}
+  .btn.primary{background:var(--red);border-color:var(--red)} .btn:hover{filter:brightness(1.15);color:#fff}
+  .badges img{margin:2px;height:20px}
+  h2{font-size:1.7rem;margin:56px 0 12px} h3{margin:0 0 6px;font-size:1.1rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+  .card p{margin:0;color:var(--mute);font-size:.95rem}
+  /* demo window */
+  .win{border:1px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 18px 50px #000a;background:var(--panel)}
+  .title{background:var(--red);color:#fff;padding:7px 12px;font-size:13px;display:flex;justify-content:space-between}
+  .menubar{background:var(--bar);display:flex;position:relative;font-size:13px;user-select:none}
+  .m{position:relative}
+  .m>button{background:none;border:0;color:var(--text);padding:6px 12px;font:inherit;cursor:pointer}
+  .m>button:hover,.m.open>button{background:#464646}
+  .dd{display:none;position:absolute;top:100%;left:0;min-width:210px;background:var(--bar);border:1px solid #505050;z-index:5;padding:3px 0}
+  .m.open .dd{display:block}
+  .dd button{display:flex;justify-content:space-between;width:100%;background:none;border:0;color:var(--text);padding:6px 16px;font:inherit;cursor:pointer;text-align:left}
+  .dd button:hover{background:#464646} .dd .k{color:var(--mute);margin-left:28px}
+  .dd hr{border:0;border-top:1px solid #505050;margin:3px 0}
+  #ed{display:block;width:100%;height:340px;resize:vertical;background:#1e1e1e;color:var(--text);border:0;outline:0;padding:8px 10px;font:14px/1.45 Consolas,"Cascadia Mono",monospace;white-space:pre;overflow:auto;tab-size:4}
+  #ed.wrap{white-space:pre-wrap}
+  .status{background:var(--bar);color:var(--text);font-size:12px;padding:4px 12px;display:flex;gap:18px}
+  .hint{color:var(--mute);font-size:.9rem;margin-top:10px;text-align:center}
+  #findbar{display:none;background:var(--bar);padding:6px 10px;gap:8px;align-items:center;font-size:13px;border-top:1px solid var(--line)}
+  #findbar input[type=text]{background:#1e1e1e;border:1px solid #505050;color:var(--text);padding:3px 6px}
+  #findbar button{background:#464646;border:0;color:#fff;padding:4px 10px;cursor:pointer}
+  pre.code{background:#0d0d0d;border:1px solid var(--line);border-radius:8px;padding:14px;overflow:auto;font:14px/1.5 Consolas,monospace;position:relative}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:10px 0}
+  summary{cursor:pointer;font-weight:600} details p{color:var(--mute);margin:8px 0 0}
+  table{border-collapse:collapse;width:100%} td,th{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left} th{color:var(--mute);font-weight:600}
+  kbd{background:#2b2b2b;border:1px solid #4a4a4a;border-radius:4px;padding:1px 6px;font-size:.85em}
+  footer{border-top:1px solid var(--line);margin-top:64px;padding:28px 0;color:var(--mute);text-align:center;font-size:.9rem}
+  .shot{width:100%;border-radius:8px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><nav aria-label="Main">
+  <a class="brand" href="#">Dark Notepad</a>
+  <a href="#demo">Live demo</a><a href="#features">Features</a><a href="#install">Install</a><a href="#faq">FAQ</a>
+  <a href="https://github.com/248Tech/DarkNotepad">GitHub</a>
+</nav></div></header>
+
+<main class="wrap">
+<section class="hero">
+  <h1>Dark Notepad: the dark mode Notepad for Windows</h1>
+  <p class="lead">A free, open-source, lightweight text editor with light text on a dark gray background. No installer bloat, no telemetry, just a fast Notepad alternative that's easy on the eyes.</p>
+  <div class="btns">
+    <a class="btn primary" href="https://github.com/248Tech/DarkNotepad/releases/latest">Download for Windows</a>
+    <a class="btn" href="#demo">Try the live demo</a>
+    <a class="btn" href="https://github.com/248Tech/DarkNotepad">View source</a>
+  </div>
+  <div class="badges">
+    <img alt="Latest release" src="https://img.shields.io/github/v/release/248Tech/DarkNotepad?style=flat-square&color=e81123">
+    <img alt="MIT license" src="https://img.shields.io/github/license/248Tech/DarkNotepad?style=flat-square">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/248Tech/DarkNotepad?style=flat-square">
+    <img alt="Platform Windows" src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078d4?style=flat-square">
+  </div>
+</section>
+
+<section id="demo" aria-labelledby="demo-h">
+  <h2 id="demo-h">Live demo</h2>
+  <p>This is an in-browser replica of the Windows app so you can feel the interface. The real app is a native Windows program; this page runs entirely in your browser and nothing is uploaded.</p>
+  <div class="win">
+    <div class="title"><span id="wtitle">Untitled - Dark Notepad</span><span>&#8211; &#9633; &#10005;</span></div>
+    <div class="menubar" id="menubar">
+      <div class="m"><button>File</button><div class="dd">
+        <button data-a="new">New<span class="k">Ctrl+N</span></button>
+        <button data-a="open">Open...<span class="k">Ctrl+O</span></button>
+        <button data-a="save">Save<span class="k">Ctrl+S</span></button><hr>
+        <button data-a="clear">Reset demo text</button></div></div>
+      <div class="m"><button>Edit</button><div class="dd">
+        <button data-a="undo">Undo<span class="k">Ctrl+Z</span></button><hr>
+        <button data-a="find">Find...<span class="k">Ctrl+F</span></button>
+        <button data-a="all">Select All<span class="k">Ctrl+A</span></button>
+        <button data-a="date">Time/Date<span class="k">F5</span></button></div></div>
+      <div class="m"><button>Format</button><div class="dd">
+        <button data-a="wrap">Word Wrap <span class="k" id="wrapchk"></span></button>
+        <button data-a="font">Font size +</button></div></div>
+      <div class="m"><button>View</button><div class="dd">
+        <button data-a="zin">Zoom In<span class="k">Ctrl+Plus</span></button>
+        <button data-a="zout">Zoom Out<span class="k">Ctrl+Minus</span></button></div></div>
+    </div>
+    <div id="findbar"><label>Find what: <input type="text" id="q"></label>
+      <label><input type="checkbox" id="mc"> Match case</label><button id="fn">Find Next</button><button id="fx">Close</button></div>
+    <textarea id="ed" spellcheck="false" aria-label="Dark Notepad demo editor"></textarea>
+    <div class="status"><span id="pos">Ln 1, Col 1</span><span id="cnt">0 chars</span></div>
+  </div>
+  <p class="hint">Tip: try <kbd>Ctrl</kbd>+<kbd>F</kbd>, toggle word wrap, or open a text file from your computer.</p>
+</section>
+
+<section id="features" aria-labelledby="feat-h">
+  <h2 id="feat-h">Features</h2>
+  <div class="grid">
+    <div class="card"><h3>True dark mode</h3><p>Light text on a dark gray editor, with matching dark menus, status bar and scrollbars.</p></div>
+    <div class="card"><h3>Everything Notepad has</h3><p>New, Open, Save, Undo/Redo, Find with match case, Select All, Time/Date, Word Wrap and Font picker.</p></div>
+    <div class="card"><h3>Safe by default</h3><p>Prompts before discarding unsaved changes. Saves clean UTF-8 without a BOM.</p></div>
+    <div class="card"><h3>Status bar &amp; zoom</h3><p>Live line, column and character count, plus Ctrl+Plus / Ctrl+Minus zoom.</p></div>
+    <div class="card"><h3>Zero dependencies</h3><p>Pure PowerShell and WinForms, running on the Windows PowerShell 5.1 that is already on your PC.</p></div>
+    <div class="card"><h3>Private &amp; open source</h3><p>No network access, no telemetry. MIT licensed, so read it, fork it, improve it.</p></div>
+  </div>
+  <h2>Screenshot</h2>
+  <img class="shot" src="assets/screenshot.png" width="900" height="650" loading="lazy" alt="Dark Notepad on Windows: light text on a dark gray background with a red title bar and dark menu bar">
+</section>
+
+<section id="install" aria-labelledby="inst-h">
+  <h2 id="inst-h">Install Dark Notepad on Windows</h2>
+  <h3>Option 1: one-line install (recommended)</h3>
+  <p>Open PowerShell and run. It installs for your user only, with no admin rights, and adds a Start Menu shortcut.</p>
+  <pre class="code">irm https://raw.githubusercontent.com/248Tech/DarkNotepad/main/install.ps1 | iex</pre>
+  <h3>Option 2: download the release</h3>
+  <p>Grab <code>DarkNotepad-x.y.z.zip</code> from the <a href="https://github.com/248Tech/DarkNotepad/releases/latest">latest release</a>, extract it, and double-click <code>DarkNotepad.vbs</code> (or run <code>install.ps1</code>).</p>
+  <h3>Option 3: run from source</h3>
+  <pre class="code">git clone https://github.com/248Tech/DarkNotepad.git
+cd DarkNotepad
+powershell -STA -ExecutionPolicy Bypass -File .\DarkNotepad.ps1</pre>
+  <p>Uninstall any time with <code>.\install.ps1 -Uninstall</code>.</p>
+  <h3>Keyboard shortcuts</h3>
+  <table><thead><tr><th>Action</th><th>Shortcut</th></tr></thead><tbody>
+    <tr><td>New / Open / Save / Save As</td><td><kbd>Ctrl+N</kbd> <kbd>Ctrl+O</kbd> <kbd>Ctrl+S</kbd> <kbd>Ctrl+Shift+S</kbd></td></tr>
+    <tr><td>Undo / Redo</td><td><kbd>Ctrl+Z</kbd> <kbd>Ctrl+Y</kbd></td></tr>
+    <tr><td>Find</td><td><kbd>Ctrl+F</kbd></td></tr>
+    <tr><td>Insert time/date</td><td><kbd>F5</kbd></td></tr>
+    <tr><td>Zoom in / out</td><td><kbd>Ctrl+Plus</kbd> <kbd>Ctrl+Minus</kbd></td></tr>
+  </tbody></table>
+</section>
+
+<section id="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Frequently asked questions</h2>
+  <details><summary>Is Dark Notepad free?</summary><p>Yes. It is free and open source under the MIT license.</p></details>
+  <details><summary>Does it work on Windows 10 and Windows 11?</summary><p>Yes. It runs on Windows PowerShell 5.1, which ships with both.</p></details>
+  <details><summary>Does it collect any data?</summary><p>No. The app makes no network connections and has no telemetry.</p></details>
+  <details><summary>Why does Windows SmartScreen warn me?</summary><p>The scripts are not code-signed. The complete source is on GitHub so you can read exactly what runs. You can also verify the SHA-256 checksum published with each release.</p></details>
+  <details><summary>How is it different from Windows Notepad's dark mode?</summary><p>Dark Notepad is a tiny, portable, hackable script with a fixed dark gray look and no account, update or AI prompts. It's also a clean, readable example of a themed WinForms app in PowerShell.</p></details>
+</section>
+</main>
+
+<footer><div class="wrap">
+  Dark Notepad is MIT licensed &middot; Built by <a href="https://github.com/248Tech">248Tech</a> &middot;
+  <a href="https://github.com/248Tech/DarkNotepad/issues">Report an issue</a> &middot;
+  <a href="https://github.com/248Tech/DarkNotepad/blob/main/CHANGELOG.md">Changelog</a>
+</div></footer>
+
+<script>
+(function(){
+  var ed=document.getElementById('ed'), zoom=14, fileName='Untitled';
+  var sample="Dark Notepad\n============\nA lightweight dark-mode Notepad clone for Windows.\n\n  * Light text on dark gray - easy on the eyes\n  * Find, word wrap, zoom, font picker, status bar\n  * Pure PowerShell + WinForms - no dependencies\n\nThis is a live in-browser demo. Edit me!\n";
+  ed.value=sample;
+  function upd(){
+    var v=ed.value, p=ed.selectionStart, before=v.slice(0,p).split('\n');
+    document.getElementById('pos').textContent='Ln '+before.length+', Col '+(before[before.length-1].length+1);
+    document.getElementById('cnt').textContent=v.length+' chars';
+  }
+  function title(dirty){document.getElementById('wtitle').textContent=(dirty?'*':'')+fileName+' - Dark Notepad';}
+  ed.addEventListener('input',function(){title(true);upd();});
+  ['keyup','click','select'].forEach(function(e){ed.addEventListener(e,upd);});
+  var fb=document.getElementById('findbar'), q=document.getElementById('q');
+  function find(){
+    if(!q.value)return; var mc=document.getElementById('mc').checked, v=ed.value, s=q.value;
+    if(!mc){v=v.toLowerCase();s=s.toLowerCase();}
+    var i=v.indexOf(s,ed.selectionEnd); if(i<0)i=v.indexOf(s);
+    if(i>=0){ed.focus();ed.setSelectionRange(i,i+s.length);upd();} else alert('Cannot find "'+q.value+'"');
+  }
+  document.getElementById('fn').onclick=find;
+  document.getElementById('fx').onclick=function(){fb.style.display='none';ed.focus();};
+  q.addEventListener('keydown',function(e){if(e.key==='Enter')find();});
+  function act(a){
+    switch(a){
+      case 'new': ed.value='';fileName='Untitled';title(false);break;
+      case 'clear': ed.value=sample;fileName='Untitled';title(false);break;
+      case 'open': var i=document.createElement('input');i.type='file';i.accept='.txt,text/*';
+        i.onchange=function(){var f=i.files[0];if(!f)return;var r=new FileReader();
+          r.onload=function(){ed.value=r.result;fileName=f.name;title(false);upd();};r.readAsText(f);};i.click();break;
+      case 'save': var a2=document.createElement('a');
+        a2.href=URL.createObjectURL(new Blob([ed.value],{type:'text/plain'}));
+        a2.download=fileName==='Untitled'?'untitled.txt':fileName;a2.click();title(false);break;
+      case 'undo': ed.focus();document.execCommand('undo');break;
+      case 'all': ed.focus();ed.select();break;
+      case 'find': fb.style.display='flex';q.focus();q.select();break;
+      case 'date': ed.focus();document.execCommand('insertText',false,new Date().toLocaleString());break;
+      case 'wrap': ed.classList.toggle('wrap');document.getElementById('wrapchk').textContent=ed.classList.contains('wrap')?'✓':'';break;
+      case 'font': case 'zin': zoom=Math.min(32,zoom+2);ed.style.fontSize=zoom+'px';break;
+      case 'zout': zoom=Math.max(9,zoom-2);ed.style.fontSize=zoom+'px';break;
+    }
+    upd();
+  }
+  var menus=[].slice.call(document.querySelectorAll('.m'));
+  menus.forEach(function(m){
+    m.firstElementChild.addEventListener('click',function(e){e.stopPropagation();var o=m.classList.contains('open');menus.forEach(function(x){x.classList.remove('open');});if(!o)m.classList.add('open');});
+  });
+  document.addEventListener('click',function(){menus.forEach(function(x){x.classList.remove('open');});});
+  [].slice.call(document.querySelectorAll('.dd button')).forEach(function(b){b.addEventListener('click',function(){act(b.dataset.a);});});
+  ed.addEventListener('keydown',function(e){
+    var c=e.ctrlKey||e.metaKey, k=e.key.toLowerCase();
+    if(c&&k==='f'){e.preventDefault();act('find');}
+    else if(c&&k==='s'){e.preventDefault();act('save');}
+    else if(c&&k==='o'){e.preventDefault();act('open');}
+    else if(c&&k==='n'){e.preventDefault();act('new');}
+    else if(c&&(k==='='||k==='+')){e.preventDefault();act('zin');}
+    else if(c&&k==='-'){e.preventDefault();act('zout');}
+    else if(e.key==='F5'){e.preventDefault();act('date');}
+  });
+  upd();
+})();
+</script>
+</body>
+</html>

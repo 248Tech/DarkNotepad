@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Package
+        shell: powershell
+        run: |
+          $v = '${{ github.ref_name }}'.TrimStart('v')
+          New-Item -ItemType Directory dist | Out-Null
+          $zip = "dist/DarkNotepad-$v.zip"
+          Compress-Archive -Path DarkNotepad.ps1, DarkNotepad.vbs, install.ps1, LICENSE, README.md -DestinationPath $zip
+          $hash = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLower()
+          "$hash  DarkNotepad-$v.zip" | Set-Content "dist/DarkNotepad-$v.zip.sha256"
+
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
