@@ -10,6 +10,8 @@
 .PARAMETER Uninstall
     Remove the app and shortcuts.
 #>
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Interactive installer output')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Local helper')]
 [CmdletBinding()]
 param([switch]$Desktop, [switch]$Uninstall)
 

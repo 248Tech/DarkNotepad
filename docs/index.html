@@ -35,7 +35,7 @@
       "name": "Dark Notepad",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows 10, Windows 11",
-      "softwareVersion": "1.0.0",
+      "softwareVersion": "1.1.0",
       "description": "A free, open-source dark mode Notepad alternative for Windows built with PowerShell and WinForms.",
       "url": "https://248tech.github.io/DarkNotepad/",
       "downloadUrl": "https://github.com/248Tech/DarkNotepad/releases/latest",
@@ -168,8 +168,8 @@
   <h2 id="feat-h">Features</h2>
   <div class="grid">
     <div class="card"><h3>True dark mode</h3><p>Light text on a dark gray editor, with matching dark menus, status bar and scrollbars.</p></div>
-    <div class="card"><h3>Everything Notepad has</h3><p>New, Open, Save, Undo/Redo, Find with match case, Select All, Time/Date, Word Wrap and Font picker.</p></div>
-    <div class="card"><h3>Safe by default</h3><p>Prompts before discarding unsaved changes. Saves clean UTF-8 without a BOM.</p></div>
+    <div class="card"><h3>Everything Notepad has</h3><p>New, Open, Save, Undo/Redo, Find &amp; Replace, Go To Line, Select All, Time/Date, Word Wrap and Font picker.</p></div>
+    <div class="card"><h3>Safe by default</h3><p>Prompts before discarding unsaved changes. Preserves your file&#39;s encoding and line endings, and saves atomically.</p></div>
     <div class="card"><h3>Status bar &amp; zoom</h3><p>Live line, column and character count, plus Ctrl+Plus / Ctrl+Minus zoom.</p></div>
     <div class="card"><h3>Zero dependencies</h3><p>Pure PowerShell and WinForms, running on the Windows PowerShell 5.1 that is already on your PC.</p></div>
     <div class="card"><h3>Private &amp; open source</h3><p>No network access, no telemetry. MIT licensed, so read it, fork it, improve it.</p></div>
@@ -194,7 +194,8 @@ powershell -STA -ExecutionPolicy Bypass -File .\DarkNotepad.ps1</pre>
   <table><thead><tr><th>Action</th><th>Shortcut</th></tr></thead><tbody>
     <tr><td>New / Open / Save / Save As</td><td><kbd>Ctrl+N</kbd> <kbd>Ctrl+O</kbd> <kbd>Ctrl+S</kbd> <kbd>Ctrl+Shift+S</kbd></td></tr>
     <tr><td>Undo / Redo</td><td><kbd>Ctrl+Z</kbd> <kbd>Ctrl+Y</kbd></td></tr>
-    <tr><td>Find</td><td><kbd>Ctrl+F</kbd></td></tr>
+    <tr><td>Find / Find Next / Replace</td><td><kbd>Ctrl+F</kbd> <kbd>F3</kbd> <kbd>Ctrl+H</kbd></td></tr>
+    <tr><td>Go To Line</td><td><kbd>Ctrl+G</kbd></td></tr>
     <tr><td>Insert time/date</td><td><kbd>F5</kbd></td></tr>
     <tr><td>Zoom in / out</td><td><kbd>Ctrl+Plus</kbd> <kbd>Ctrl+Minus</kbd></td></tr>
   </tbody></table>
@@ -280,3 +281,4 @@ powershell -STA -ExecutionPolicy Bypass -File .\DarkNotepad.ps1</pre>
 </script>
 </body>
 </html>
+

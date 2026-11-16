@@ -28,8 +28,11 @@ Classic Notepad blinds you at 2 a.m. Dark Notepad is a small, readable, hackable
 
 - **True dark mode:** light text (`#EBEBEB`) on dark gray (`#1E1E1E`), with custom-rendered dark menus and status bar
 - **Familiar editing:** New, Open, Save, Save As, Undo/Redo, Cut/Copy/Paste, Select All, Time/Date (`F5`)
-- **Find** with match-case, **Word Wrap**, **Font picker**, **Zoom** in/out
-- **Status bar:** line, column and character count
+- **Find & Replace** (match case, wrap around, Replace All as one undo step), **Find Next** (`F3`), **Go To Line** (`Ctrl+G`)
+- **Word Wrap**, **Font picker**, **Zoom** in/out, remembered window size, font and settings
+- **Encoding-safe:** preserves UTF-8 / UTF-8 BOM / UTF-16 / ANSI and CRLF / LF / CR line endings; atomic saves
+- **Drag & drop** a file onto the window to open it
+- **Status bar:** line, column, character count, encoding, line ending and zoom
 - **Safe saving:** prompts before discarding unsaved changes; UTF-8 without BOM
 - **Open with file:** `DarkNotepad.vbs notes.txt`
 - **Private:** no network access, no telemetry, no accounts
@@ -77,19 +80,30 @@ powershell -STA -ExecutionPolicy Bypass -File .\DarkNotepad.ps1 [file.txt]
 | New / Open / Save / Save As | `Ctrl+N` / `Ctrl+O` / `Ctrl+S` / `Ctrl+Shift+S` |
 | Undo / Redo | `Ctrl+Z` / `Ctrl+Y` |
 | Cut / Copy / Paste / Select All | `Ctrl+X` / `Ctrl+C` / `Ctrl+V` / `Ctrl+A` |
-| Find | `Ctrl+F` |
+| Find / Find Next / Replace | `Ctrl+F` / `F3` / `Ctrl+H` |
+| Go To Line | `Ctrl+G` |
 | Insert time/date | `F5` |
-| Zoom in / out | `Ctrl+Plus` / `Ctrl+Minus` |
+| Zoom in / out / reset | `Ctrl+Plus` / `Ctrl+Minus` / `Ctrl+0` |
 
 ## Roadmap
 
-- [ ] Find & Replace, Go To Line
 - [ ] Printing
-- [ ] Remember window size, font and word-wrap
 - [ ] Optional light theme toggle
 - [ ] Signed releases / winget package
 
 Have an idea? [Open a feature request](https://github.com/248Tech/DarkNotepad/issues/new/choose).
+
+## Development
+
+```powershell
+# run the tests (no dependencies)
+powershell -NoProfile -File tests\Run-Tests.ps1
+
+# lint
+Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error,Warning
+```
+
+Dot-sourcing `DarkNotepad.ps1` loads its file I/O and text helpers without starting the UI, which is how the tests work.
 
 ## Contributing
 
@@ -108,3 +122,4 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code 
 [MIT](LICENSE) © 2026 [248Tech](https://github.com/248Tech)
 
 <sub>Keywords: dark notepad, dark mode notepad, notepad dark theme, Windows text editor, notepad alternative, PowerShell WinForms example, open source text editor.</sub>
+

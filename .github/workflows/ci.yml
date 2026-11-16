@@ -26,6 +26,14 @@ jobs:
         shell: powershell
         run: |
           Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
-          $r = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error
+          $r = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error,Warning
           $r | Format-Table -AutoSize
           if ($r) { exit 1 }
+
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run test suite
+        shell: powershell
+        run: .\tests\Run-Tests.ps1
